@@ -45,4 +45,8 @@ public class Account {
 		this.name = name;
 		this.balance = balance;
 	}
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", name=" + name + ", balance=" + balance + "]";
+	}
 }

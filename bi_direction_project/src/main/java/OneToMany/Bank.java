@@ -2,6 +2,7 @@ package OneToMany;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -11,7 +12,7 @@ public class Bank {
 	private int id;
 	private String name;
 	private String location;
-	@OneToMany(mappedBy = "bank")
+	@OneToMany(mappedBy = "bank", cascade = CascadeType.ALL)
 	private List<Account>accountList;
 	public int getId() {
 		return id;
@@ -44,5 +45,9 @@ public class Bank {
 		this.id = id;
 		this.name = name;
 		this.location = location;
-	}	
+	}
+	@Override
+	public String toString() {
+		return "Bank [id=" + id + ", name=" + name + ", location=" + location + "]";
+	}
 }
