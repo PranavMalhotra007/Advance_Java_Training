@@ -1,0 +1,23 @@
+package com.lpu.ecommerce.Config;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+@ComponentScan(basePackages = {"com.lpu.ecommerce.Entity","com.lpu.ecommerce.Dao","com.lpu.ecommerce.Service","com.lpu.ecommerce.Controller"})
+@Configuration
+public class MyConfig {
+	@Bean
+	public EntityManagerFactory getEMF() {
+		return Persistence.createEntityManagerFactory("dev");
+	}
+	@Bean
+	public ViewResolver viewResolver() {
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setPrefix("WEB-INF/View/");
+		resolver.setSuffix(".jsp");
+		return resolver;
+	}
+}
