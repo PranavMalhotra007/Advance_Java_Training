@@ -28,4 +28,12 @@ public class CustomerController {
 	public String accountPage() {
 		return "account page";
 	}
+	@GetMapping("/delete")
+	public String deletePage() {
+		return "delete page";
+	}
+	@GetMapping("/update")
+	public String updatePage() {
+		return "update page";
+	}
 }
