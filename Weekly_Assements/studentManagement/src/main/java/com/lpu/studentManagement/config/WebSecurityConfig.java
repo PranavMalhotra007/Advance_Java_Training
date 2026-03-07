@@ -1,5 +1,7 @@
-package com.lpu.security.config;
+package com.lpu.studentManagement.config;
+
 import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -12,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 @EnableMethodSecurity
 @Configuration
 @EnableWebSecurity
@@ -21,13 +24,12 @@ public class WebSecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
 	{
 		//http.sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-		http.cors(Customizer.withDefaults());
-		http.csrf(csrf -> csrf.disable());	
+		http.csrf(csrf -> csrf.disable());
 		http.authorizeHttpRequests((req) ->
-		 req.requestMatchers("/register","/update","/delete/**","/upload/**").hasRole("ADMIN")
-		 .requestMatchers("/find/**","/find","/download/**").hasAnyRole("ADMIN","USER")
-		 .requestMatchers("/actuator/**").hasRole("ADMIN")
-		 .anyRequest().authenticated());
+		req.requestMatchers("/register").permitAll()
+		.requestMatchers("/register","/delete","/update").hasRole("ADMIN")
+		.requestMatchers("/find","/find/**").hasAnyRole("ADMIN","USER")
+		.anyRequest().authenticated());
 		http.formLogin(Customizer.withDefaults());
 		http.httpBasic(Customizer.withDefaults());
 		return http.build();

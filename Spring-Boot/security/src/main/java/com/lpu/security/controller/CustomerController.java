@@ -1,13 +1,18 @@
 package com.lpu.security.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lpu.security.entity.Customer;
 import com.lpu.security.service.CustomerService;
-
+@CrossOrigin
 @RestController
 public class CustomerController {
 	private final CustomerService customerService;
@@ -35,5 +40,17 @@ public class CustomerController {
 	@GetMapping("/update")
 	public String updatePage() {
 		return "update page";
+	}
+	@DeleteMapping("/del/{id}")
+	public String deleteCustomer(@PathVariable int id) {
+		return customerService.deleteCustomer(id);
+	}
+	@GetMapping("/all")
+	public List<Customer> findAll(){
+		return customerService.findAll();
+	}
+	@GetMapping("/{id}")
+	public Customer findByID(@PathVariable int id){
+		return customerService.findbyIDCustomer(id);
 	}
 }

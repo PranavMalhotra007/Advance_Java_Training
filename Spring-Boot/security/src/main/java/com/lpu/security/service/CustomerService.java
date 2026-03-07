@@ -1,5 +1,11 @@
 package com.lpu.security.service;
 
+
+
+import java.util.List;
+
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +28,19 @@ public class CustomerService {
 		c.setRole(role);
 		c.setPassword(encodedPassword);
 		return customerRepository.save(c);
+	}
+	@PostAuthorize("retrunObject.name == authentication.name")
+	public String deleteCustomer(int id) {
+		customerRepository.deleteById(id);
+		return "deleted";
+	}
+	@PostAuthorize("retrunObject.name == authentication.name")
+	public Customer findbyIDCustomer(int id) {
+		return customerRepository.findById(id).get();
+		
+	}
+	@PreAuthorize("hasRole('ADMIN')")
+	public List<Customer> findAll(){
+		return customerRepository.findAll();
 	}
 }
