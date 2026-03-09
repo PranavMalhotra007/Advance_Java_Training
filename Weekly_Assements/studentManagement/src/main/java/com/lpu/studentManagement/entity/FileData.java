@@ -1,5 +1,7 @@
 package com.lpu.studentManagement.entity;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Lob;
 import lombok.Getter;
@@ -10,7 +12,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Embeddable
-public class FileData {
+public class FileData implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String fileName;
 	private String fieldType;
 	@Lob

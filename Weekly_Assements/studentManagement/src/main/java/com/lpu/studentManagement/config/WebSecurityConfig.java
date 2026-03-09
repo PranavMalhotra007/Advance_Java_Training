@@ -27,8 +27,10 @@ public class WebSecurityConfig {
 		http.csrf(csrf -> csrf.disable());
 		http.authorizeHttpRequests((req) ->
 		req.requestMatchers("/register").permitAll()
-		.requestMatchers("/register","/delete","/update").hasRole("ADMIN")
-		.requestMatchers("/find","/find/**").hasAnyRole("ADMIN","USER")
+		.requestMatchers("/delete/**","/update").hasRole("ADMIN")
+		.requestMatchers("/find","/find/**").permitAll()
+		.requestMatchers("/download/**").hasAnyRole("ADMIN","USER")
+	    .requestMatchers("/actuator/**").hasRole("ADMIN")
 		.anyRequest().authenticated());
 		http.formLogin(Customizer.withDefaults());
 		http.httpBasic(Customizer.withDefaults());

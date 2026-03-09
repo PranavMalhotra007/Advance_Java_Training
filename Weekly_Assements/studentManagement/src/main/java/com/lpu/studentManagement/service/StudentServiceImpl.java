@@ -3,8 +3,8 @@ package com.lpu.studentManagement.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -50,6 +50,7 @@ public class StudentServiceImpl implements StudentService{
 	}
 	@Override
 	@PreAuthorize("hasRole('ADMIN')")
+	@CacheEvict(value="student", key = "#id")
 	public String deleteStudent(int id) {
 		findById(id);
 		studentRepository.deleteById(id);
@@ -62,28 +63,26 @@ public class StudentServiceImpl implements StudentService{
 		return studentRepository.save(s);	
 	}
 	@Override
-	@PostAuthorize("retrunObject.name == authentication.name")
 	public String uploadProfilePic(int id, FileData profilePic) {
 		// TODO Auto-generated method stub
 		Student s = findById(id);
 		s.setProfileImage(profilePic);
+		studentRepository.save(s);
 		return "profile pic uploaded";
 	}
 	@Override
-	@PostAuthorize("retrunObject.name == authentication.name")
 	public String uploadAssignment(int id, FileData assignment) {
 		Student s = findById(id);
 		s.setAssignmentFile(assignment);
+		studentRepository.save(s);
 		return "assignment file uploaded";
 	}
 	@Override
-	@PostAuthorize("retrunObject.name == authentication.name")
 	public byte[] downloadAssignmentFile(int id) {
 		Student s = findById(id);
 		return s.getAssignmentFile().getData();
 	}
 	@Override
-	@PostAuthorize("retrunObject.name == authentication.name")
 	public byte[] downloadProfileImage(int id) {
 		Student s = findById(id);
 		return s.getProfileImage().getData();

@@ -51,7 +51,7 @@ public class StudentController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED)
 				.body(studentService.updateStudent(s));
 	}
-	@PutMapping(value = "/upload/{id}", params = "profilePic")
+	@PutMapping("/upload/{id}")
 	public ResponseEntity<String> uploadProfile(@RequestParam("profilePic")MultipartFile file,@PathVariable int id )throws IOException{
 		FileData profilePic = new FileData();
 		profilePic.setFileName(file.getOriginalFilename());
@@ -60,7 +60,7 @@ public class StudentController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED)
 				.body(studentService.uploadProfilePic(id,profilePic));
 	}
-	@PutMapping(value = "/upload/{id}", params = "assignmentFile")
+	@PutMapping("/upload/assignment/{id}")
 	public ResponseEntity<String> uploadAssignment(@RequestParam("assignmentFile")MultipartFile file, @PathVariable int id )throws IOException{
 		FileData assignmentFile = new FileData();
 		assignmentFile.setFileName(file.getOriginalFilename());
