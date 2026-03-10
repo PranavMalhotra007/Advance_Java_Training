@@ -13,6 +13,7 @@ public class CustomerService {
 	this.customerRepository = customerRepository;
  }
  public Customer findById(int id) {
+	 System.out.println("Hello");
 	 return customerRepository.findById(id).orElse(null);
  }
  public Customer save(Customer c) {
