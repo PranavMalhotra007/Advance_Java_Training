@@ -1,5 +1,7 @@
 package com.lpu.product.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,10 @@ public class ProductController {
 	public ProductController(ProductService productService) {
 		super();
 		this.productService = productService;
+	}
+	@GetMapping("/data")
+	public List<Product> getProductData() {
+		return productService.findAll();
 	}
 	@GetMapping("/find/{id}")
 	public Product findByid(@PathVariable int id) {

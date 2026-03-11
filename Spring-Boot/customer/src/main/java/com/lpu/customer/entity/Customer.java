@@ -33,5 +33,9 @@ public void setEmail(String email) {
 public Customer() {
 	super();
 }
+@Override
+public String toString() {
+	return "Customer [id=" + id + ", name=" + name + ", email=" + email + "]";
+}
 
 }

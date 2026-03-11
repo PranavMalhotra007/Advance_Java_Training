@@ -33,5 +33,9 @@ public void setQuantity(int quantity) {
 public Product() {
 	super();
 }
+@Override
+public String toString() {
+	return "Product [id=" + id + ", name=" + name + ", quantity=" + quantity + "]";
+}
 
 }

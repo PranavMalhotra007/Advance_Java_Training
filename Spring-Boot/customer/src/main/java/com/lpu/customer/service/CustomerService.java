@@ -1,5 +1,7 @@
 package com.lpu.customer.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.lpu.customer.entity.Customer;
@@ -18,5 +20,8 @@ public class CustomerService {
  }
  public Customer save(Customer c) {
 	 return customerRepository.save(c);
+ }
+ public List<Customer> findAll(){
+	 return customerRepository.findAll();
  }
 }

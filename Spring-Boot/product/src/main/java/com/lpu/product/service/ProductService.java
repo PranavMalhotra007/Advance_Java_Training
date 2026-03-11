@@ -1,5 +1,7 @@
 package com.lpu.product.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import com.lpu.product.entity.Product;
 import com.lpu.product.repository.ProductRepository;
@@ -17,5 +19,8 @@ public class ProductService {
 	 }
 	 public Product save(Product p) {
 		 return productRepository.save(p);
+	 }
+	 public List<Product> findAll() {
+		 return productRepository.findAll();
 	 }
 }
