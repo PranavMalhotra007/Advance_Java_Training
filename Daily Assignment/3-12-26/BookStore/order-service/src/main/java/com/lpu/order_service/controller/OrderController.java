@@ -3,7 +3,6 @@ package com.lpu.order_service.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lpu.order_service.entity.BookDTO;
+
 import com.lpu.order_service.entity.Order;
-import com.lpu.order_service.service.BookFeignClient;
 import com.lpu.order_service.service.OrderService;
 
 import jakarta.validation.Valid;
@@ -23,17 +21,14 @@ import jakarta.validation.Valid;
 @RestController
 public class OrderController {
 	private OrderService orderService;
-	private BookFeignClient bookFeignClient;
-	public OrderController(OrderService orderService, BookFeignClient bookFeignClient) {
+	public OrderController(OrderService orderService) {
 		super();
 		this.orderService = orderService;
-		this.bookFeignClient = bookFeignClient;
 	}
 	@PostMapping("/api/orders")
 	public ResponseEntity<Order> saveOrder(@Valid @RequestBody Order order) {
-		BookDTO bookDTO = bookFeignClient.findById(order.getBookid());
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(orderService.saveOrder(order,bookDTO));
+				.body(orderService.saveOrder(order));
 	}
 	@GetMapping("/api/orders")
 	public ResponseEntity<List<Order>> findAll() {

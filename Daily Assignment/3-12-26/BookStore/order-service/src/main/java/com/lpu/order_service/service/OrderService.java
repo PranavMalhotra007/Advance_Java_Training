@@ -10,13 +10,15 @@ import com.lpu.order_service.repository.OrderRepository;
 
 @Service
 public class OrderService {
+	private BookFeignClient bookFeignClient;
 	private OrderRepository orderRepository;
-
-	public OrderService(OrderRepository orderRepository) {
+	public OrderService(BookFeignClient bookFeignClient, OrderRepository orderRepository) {
 		super();
+		this.bookFeignClient = bookFeignClient;
 		this.orderRepository = orderRepository;
 	}
-	public Order saveOrder(Order order, BookDTO bookDTO) {
+	public Order saveOrder(Order order) {
+		BookDTO bookDTO = bookFeignClient.findById(order.getBookid());
 		order.setTotalprice(bookDTO.getPrice()*order.getQuantity());
 		return orderRepository.save(order);
 	}
